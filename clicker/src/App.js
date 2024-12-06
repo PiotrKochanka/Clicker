@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { useState, useEffect } from 'react';
 
@@ -8,12 +8,40 @@ function App() {
     return savedNumber ? JSON.parse(savedNumber) : 0;
   });
 
+  const [redShades, setRedShades] = useState([
+    "#00BB00", 
+    "#00D400", 
+    "#00E800",
+    "#00F100",
+    "#00FF00", 
+    "#85FF00",
+    "#B0FF00",
+    "#E2FF00",
+    "#FFFF00",
+    "#FFE200",
+    "#FFBE00",
+    "#FF9900",
+    "#FF7C00",
+    "#FF5D00",
+    "#FF3F00",
+    "#FF2400",
+    "#FF0B00",
+    "#FF0000",
+  ]);
+
+  const [currentColorIndex, setCurrentColorIndex] = useState(0);
 
   useEffect(() => {
     const clickNumber = () => {
       setNumber((prev) => {
         const newNumber = prev + 1;
         localStorage.setItem('number', JSON.stringify(newNumber));
+
+        /* Zmiana koloru co 3 kliknięcia */
+        if ((newNumber % 8 === 0) && currentColorIndex < redShades.length - 1) {
+          setCurrentColorIndex((prevIndex) => prevIndex + 1);
+        }
+
         return newNumber;
       });
     };
@@ -29,7 +57,10 @@ function App() {
 
   return (
     <div className="App">
-      <span className="low">{number}</span>
+      <span 
+        className={`low ${number >= 60 ? "shake" : ""}`}
+        style={{ color: redShades[currentColorIndex] }}
+      >{number}</span>
       <button onClick={removeNumber}>Reset</button>
     </div>
   );

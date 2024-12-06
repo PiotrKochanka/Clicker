@@ -19,7 +19,7 @@
           user-select: none;
 }
 .low{
-  color: rgb(167, 167, 167);
+  color: #FF0000;
 }
 .App > button{
   color: rgb(160, 9, 160);
@@ -46,6 +46,18 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: no-preference) {
