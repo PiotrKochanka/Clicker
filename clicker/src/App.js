@@ -29,7 +29,10 @@ function App() {
     "#FF0000",
   ]);
 
-  const [currentColorIndex, setCurrentColorIndex] = useState(0);
+  const [currentColorIndex, setCurrentColorIndex] = useState(() => {
+    const savedColor = localStorage.getItem('currentColorIndex');
+    return savedColor ? JSON.parse(savedColor) : 0;
+  });
 
   useEffect(() => {
     const clickNumber = () => {
@@ -39,7 +42,10 @@ function App() {
 
         /* Zmiana koloru co 3 kliknięcia */
         if ((newNumber % 8 === 0) && currentColorIndex < redShades.length - 1) {
-          setCurrentColorIndex((prevIndex) => prevIndex + 1);
+          setCurrentColorIndex((prevIndex) => {
+            const newColor = prevIndex + 1;
+            localStorage.setItem('currentColorIndex', JSON.stringify(newColor));
+          });
         }
 
         return newNumber;
